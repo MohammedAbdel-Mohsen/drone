@@ -1,0 +1,329 @@
+openapi: 3.0.3
+info:
+  title: Drone Transportation Service
+  description: |-
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.0
+servers:
+  - url: https://{Base Path}
+tags:
+  - name: Drone
+    description: Endpoints related to the drone registration, checking available drones for loading and checking the drone battery level.
+  - name: Drone Medication items
+    description: Endpoints related to loading a drone with medication items
+      and checking loaded medication items for a given drone.
+paths:
+  /register_drone:
+    post:
+      tags:
+        - Drone
+      description: register a new drone
+      operationId: register_new_drone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Drone"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: API not found
+  /load_drone:
+    post:
+      tags:
+        - Drone Medication items
+      description: loading a drone with medication items
+      operationId: load_drone
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                droneSerialNumber:
+                  type: string
+                medicationCodes:
+                  $ref: '#/components/schemas/MedicationCodes'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: API not found
+  /get_loaded_medication_items:
+    post:
+      tags:
+        - Drone Medication items
+      description: checking loaded medication items for a given drone
+      operationId: get_loaded_medication_items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DroneSerialNumber"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoadedMedicationItemsResponseBody'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetLoadedMedicationItemsResponseBody'
+        '400':
+          description: Bad Request
+        '404':
+          description: API not found
+  /get_available_drones_for_loading:
+    get:
+      tags:
+        - Drone
+      description: checking available drones for loading
+      operationId: get_available_drones_for_loading
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAvailableDronesForLoadingResponseBody'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetAvailableDronesForLoadingResponseBody'
+        '400':
+          description: Bad Request
+        '404':
+          description: API not found
+  /check_drone_battery:
+    post:
+      tags:
+        - Drone
+      description: check drone battery level for a given drone
+      operationId: check_drone_battery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DroneSerialNumber"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckDroneBatteryResponseBody'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckDroneBatteryResponseBody'
+        '400':
+          description: Bad Request
+        '404':
+          description: API not found
+components:
+  schemas:
+    Drones:
+      type: array
+      items:
+        $ref: '#/components/schemas/Drone'
+      xml:
+        name: Drones
+    Drone:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+          maxLength: 100
+        droneModel:
+          type: string
+          example: AVAILABLE
+          enum:
+            - LIGHT_WEIGHT
+            - MIDDLE_WEIGHT
+            - CRUISER_WEIGHT
+            - HEAVY_WEIGHT
+        weightLimit:
+          type: integer
+          maximum: 500
+        batteryCapacity:
+          type: number
+          format: double
+          maximum: 100.00
+        droneState:
+          enum:
+            - IDLE
+            - LOADING
+            - LOADED
+            - DELIVERING
+            - DELIVERED
+            - RETURNING
+      xml:
+        name: Drone
+    DroneSerialNumber:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+          maxLength: 100
+      xml:
+        name: GetLoadedMedicationItemsRequestBody
+    MedicationCodes:
+      type: array
+      items:
+        $ref: '#/components/schemas/MedicationCode'
+      xml:
+        name: MedicationCodes
+    MedicationCode:
+      type: string
+      pattern: '^[A-Z0-9_]*$'
+      xml:
+        name: MedicationCode
+    Medications:
+      type: array
+      items:
+        $ref: '#/components/schemas/Medication'
+      xml:
+        name: Medications
+    Medication:
+      type: object
+      properties:
+        code:
+          type: string
+          pattern: '^[A-Z0-9_]*$'
+        name:
+          type: string
+          pattern: '^[a-zA-Z0-9_-]*$'
+        weight:
+          type: number
+          format: double
+        medicationPhoto:
+          type: string
+          format: byte
+      xml:
+        name: Medication
+    GetLoadedMedicationItemsResponseBody:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiResponse'
+        data:
+          $ref: '#/components/schemas/Medications'
+      xml:
+        name: GetLoadedMedicationItemsResponseBody
+    CheckDroneBatteryResponseBody:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiResponse'
+        data:
+          $ref: '#/components/schemas/DroneBattery'
+      xml:
+        name: CheckDroneBatteryResponseBody
+    DroneBattery:
+      type: string
+      maximum: 100.00
+      xml:
+        name: DroneBattery
+    GetAvailableDronesForLoadingResponseBody:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiResponse'
+        data:
+          $ref: '#/components/schemas/Drones'
+      xml:
+        name: GetAvailableDronesForLoadingResponseBody
+    Problem:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: |
+            The HTTP status code generated by the origin server for this occurrence of the problem.
+          minimum: 100
+          maximum: 600
+          exclusiveMaximum: true
+          example: 503
+        detail:
+          type: string
+          description: |
+            A human readable explanation specific to this occurrence of the problem.
+          example: Connection to database timed out
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: 'Request Handled Successfully'
+      xml:
+        name: '##default'
+  responses:
+    BadRequest:
+      description: BadRequest
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    InternalServer:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  examples:
+    ErrorForbidden:
+      description: Forbidden
+      value:
+        status: 403
+        detail: "According to the access control policy the current user and/or accountId does not have permission to access this resource."
+    ErrorNotFound:
+      description: Not Found
+      value:
+        status: 404
+        detail: "Resource not found."
+    ErrorInternalServerError:
+      description: Server Error
+      value:
+        status: 500
+        detail: "An internal server error was encountered."

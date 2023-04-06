@@ -26,7 +26,7 @@ public class DroneMedicationHistory implements Serializable {
     private String droneId;
 
     @Column(name = "MEDICATION_ID")
-    private Integer medicationId;
+    private String medicationId;
 
     @Column(name = "LOADING_TIME")
     private Timestamp loadingTime;

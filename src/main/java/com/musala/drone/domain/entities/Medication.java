@@ -16,12 +16,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Medication implements Serializable {
 
+    @Column(name = "CODE")
+    @Pattern(regexp = "^[A-Z0-9_]*$")
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEDICATION_ID_SEQ")
-    @SequenceGenerator(sequenceName = "MEDICATION_ID_SEQ", allocationSize = 1,
-            name = "MEDICATION_ID_SEQ")
-    @Column(name = "ID")
-    private Integer id;
+    private String code;
 
     @Column(name = "NAME", unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
@@ -29,10 +27,6 @@ public class Medication implements Serializable {
 
     @Column(name = "WEIGHT")
     private Double weight;
-
-    @Column(name = "CODE")
-    @Pattern(regexp = "^[A-Z0-9_]*$")
-    private String code;
 
     @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JsonBackReference

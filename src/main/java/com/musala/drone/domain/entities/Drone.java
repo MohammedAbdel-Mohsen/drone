@@ -20,7 +20,6 @@ public class Drone implements Serializable {
 
     @Id
     @Column(name = "SERIAL_NUMBER", length = 100)
-//    @Size(max = 100)
     @Length(max = 100)
     private String serialNumber;
 
@@ -29,7 +28,6 @@ public class Drone implements Serializable {
 
     @Column(name = "WEIGHT_LIMIT", length = 500)
     @Length(max = 500)
-    //    @Size(max = 500)
     private Integer weightLimit;
 
     @Column(name = "BATTERY_CAPACITY", columnDefinition = "DOUBLE DEFAULT 100.00")
