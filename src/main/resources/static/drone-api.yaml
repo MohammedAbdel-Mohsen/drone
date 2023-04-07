@@ -52,14 +52,9 @@ paths:
       operationId: load_drone
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema:
-              type: object
-              properties:
-                droneSerialNumber:
-                  type: string
-                medicationCodes:
-                  $ref: '#/components/schemas/MedicationCodes'
+              $ref: "#/components/schemas/LoadDroneRequestBody"
       responses:
         '200':
           description: Successful operation
@@ -146,6 +141,15 @@ paths:
           description: API not found
 components:
   schemas:
+    LoadDroneRequestBody:
+      type: object
+      properties:
+        droneSerialNumber:
+          type: string
+        medicationCodes:
+          $ref: '#/components/schemas/MedicationCodes'
+      xml:
+        name: LoadDroneRequestBody
     Drones:
       type: array
       items:
@@ -160,7 +164,6 @@ components:
           maxLength: 100
         droneModel:
           type: string
-          example: AVAILABLE
           enum:
             - LIGHT_WEIGHT
             - MIDDLE_WEIGHT
@@ -190,7 +193,7 @@ components:
           type: string
           maxLength: 100
       xml:
-        name: GetLoadedMedicationItemsRequestBody
+        name: DroneSerialNumber
     MedicationCodes:
       type: array
       items:
@@ -244,7 +247,8 @@ components:
       xml:
         name: CheckDroneBatteryResponseBody
     DroneBattery:
-      type: string
+      type: number
+      format: double
       maximum: 100.00
       xml:
         name: DroneBattery
