@@ -26,7 +26,7 @@ public class MedicationPhoto implements Serializable {
     private Byte[] photo;
 
     @OneToOne
-    @JoinColumn(name = "MEDICATION_PHOTO_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "MEDICATION_PHOTO_ID", referencedColumnName = "CODE")
     Medication medication;
 
 }

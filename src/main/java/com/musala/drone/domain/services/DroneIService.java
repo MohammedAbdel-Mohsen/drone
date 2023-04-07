@@ -1,11 +1,13 @@
 package com.musala.drone.domain.services;
 
+import com.musala.drone.domain.dtos.RegisterDroneRequestDto;
+import com.musala.drone.domain.dtos.RegisterDroneResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface DroneIService {
 
-    public void registerDrone();
+    public RegisterDroneResponseDto registerDrone(RegisterDroneRequestDto registerDroneRequestDto);
 
     public void loadDrone();
 
