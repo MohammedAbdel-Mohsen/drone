@@ -26,7 +26,7 @@ public class Medication implements Serializable {
     private String name;
 
     @Column(name = "WEIGHT")
-    private Double weight;
+    private Integer weight;
 
     @OneToOne(mappedBy = "medication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JsonBackReference

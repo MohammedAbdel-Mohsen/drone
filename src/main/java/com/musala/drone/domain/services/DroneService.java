@@ -1,5 +1,7 @@
 package com.musala.drone.domain.services;
 
+import com.musala.drone.domain.dtos.LoadDroneMedicationsRequestDto;
+import com.musala.drone.domain.dtos.LoadDroneMedicationsResponseDto;
 import com.musala.drone.domain.dtos.RegisterDroneRequestDto;
 import com.musala.drone.domain.dtos.RegisterDroneResponseDto;
 import com.musala.drone.domain.entities.Drone;
@@ -46,10 +48,11 @@ public class DroneService implements DroneIService {
     }
 
     @Override
-    public void loadDrone() {
+    public LoadDroneMedicationsResponseDto loadDrone(LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto) {
 
 
 
+        return new LoadDroneMedicationsResponseDto();
     }
 
     @Override
