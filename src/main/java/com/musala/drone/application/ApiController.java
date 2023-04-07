@@ -19,14 +19,14 @@ public class ApiController {
     @Autowired
     private DroneService droneService;
     @PostMapping(path = "/registerDrone")
-    public ResponseEntity<RegisterDroneResponseDto> registerDrone(@RequestBody @Valid RegisterDroneRequestDto registerDroneRequestDto){
+    public ResponseEntity<RegisterDroneResponseDto> registerDrone(@Valid @RequestBody  RegisterDroneRequestDto registerDroneRequestDto){
 
-        droneService.registerDrone(registerDroneRequestDto);
-        return ResponseEntity.ok(new RegisterDroneResponseDto());
+        RegisterDroneResponseDto registerDroneResponseDto=droneService.registerDrone(registerDroneRequestDto);
+        return ResponseEntity.ok(registerDroneResponseDto);
     }
 
     @PostMapping(path = "/loadDroneMedications")
-    public ResponseEntity<LoadDroneMedicationsResponseDto> loadDroneMedications(@RequestBody @Valid LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto){
+    public ResponseEntity<LoadDroneMedicationsResponseDto> loadDroneMedications(@Valid @RequestBody  LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto){
 
         return ResponseEntity.ok(new LoadDroneMedicationsResponseDto());
     }
