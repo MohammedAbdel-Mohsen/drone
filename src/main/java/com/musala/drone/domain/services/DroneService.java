@@ -9,6 +9,7 @@ import com.musala.drone.domain.dtos.RegisterDroneResponseDto;
 import com.musala.drone.domain.entities.Drone;
 import com.musala.drone.domain.entities.Medication;
 import com.musala.drone.domain.entities.MedicationPhoto;
+import com.musala.drone.domain.enums.DroneState;
 import com.musala.drone.domain.mapper.DroneMapper;
 import com.musala.drone.domain.repository.DroneRepo;
 import com.musala.drone.domain.repository.MedicationHistoryRepo;
@@ -23,6 +24,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -95,6 +97,9 @@ public class DroneService implements DroneIService {
 
     @Override
     public void checkAvailableDrones() {
+
+        List<Drone> droneRepos = droneRepo
+        .findAllByStateEquals(DroneState.IDLE.toString());
 
     }
 
