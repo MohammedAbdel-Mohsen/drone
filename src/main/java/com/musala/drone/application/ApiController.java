@@ -1,6 +1,7 @@
 package com.musala.drone.application;
 
 import com.musala.drone.domain.dtos.*;
+import com.musala.drone.domain.exception.CustomException;
 import com.musala.drone.domain.services.DroneService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class ApiController {
     @Autowired
     private DroneService droneService;
     @PostMapping(path = "/registerDrone")
-    public ResponseEntity<RegisterDroneResponseDto> registerDrone(@Valid @RequestBody  RegisterDroneRequestDto registerDroneRequestDto){
+    public ResponseEntity<RegisterDroneResponseDto> registerDrone
+            (@Valid @RequestBody  RegisterDroneRequestDto registerDroneRequestDto) throws CustomException {
 
         RegisterDroneResponseDto registerDroneResponseDto=droneService.registerDrone(registerDroneRequestDto);
         return ResponseEntity.ok(registerDroneResponseDto);

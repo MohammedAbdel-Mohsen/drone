@@ -10,6 +10,7 @@ import com.musala.drone.domain.entities.Drone;
 import com.musala.drone.domain.entities.Medication;
 import com.musala.drone.domain.entities.MedicationPhoto;
 import com.musala.drone.domain.enums.DroneState;
+import com.musala.drone.domain.exception.CustomException;
 import com.musala.drone.domain.mapper.DroneMapper;
 import com.musala.drone.domain.repository.DroneRepo;
 import com.musala.drone.domain.repository.MedicationHistoryRepo;
@@ -30,6 +31,7 @@ import java.util.Optional;
 @Component
 @Primary
 @Slf4j
+@Transactional
 public class DroneService implements DroneIService {
 
     @Autowired
@@ -48,8 +50,7 @@ public class DroneService implements DroneIService {
     ResourceBundleConfig resourceBundleConfig;
 
     @Override
-    @Transactional
-    public RegisterDroneResponseDto registerDrone(RegisterDroneRequestDto registerDroneRequestDto) {
+    public RegisterDroneResponseDto registerDrone(RegisterDroneRequestDto registerDroneRequestDto) throws CustomException {
         Drone drone = null;
         RegisterDroneResponseDto registerDroneResponseDto = new RegisterDroneResponseDto();
         try {
@@ -57,8 +58,10 @@ public class DroneService implements DroneIService {
         } catch (Exception exception) {
             exception.printStackTrace();
             log.info("Failed to Map RegisterDroneRequestDto to Drone Entity");
-            registerDroneResponseDto.setCode(resourceBundleConfig.getDroneRegistrationFailedCode());
-            registerDroneResponseDto.setMessage(resourceBundleConfig.getDroneRegistrationFailedMessage());
+
+            throw new CustomException(resourceBundleConfig.getDroneRegistrationFailedCode()
+                    , resourceBundleConfig.getDroneRegistrationFailedMessage());
+
         }
         droneRepo.save(drone);
         log.info("Drone is inserted>>>");
@@ -74,18 +77,14 @@ public class DroneService implements DroneIService {
 
         Medication medication = null;
         MedicationPhoto medicationPhoto = null;
-        try {
-            medication = droneMapper.toMedicationEntity(loadDroneMedicationsRequestDto);
-        } catch (Exception exception) {
 
-        }
+        medication = droneMapper.toMedicationEntity(loadDroneMedicationsRequestDto);
+
         //droneRepo.save(medication);
         log.info("Medication has been inserted successfully");
-        try {
-            medicationPhoto = droneMapper.toMedicationPhotoEntity(loadDroneMedicationsRequestDto);
-        } catch (Exception exception) {
 
-        }
+        medicationPhoto = droneMapper.toMedicationPhotoEntity(loadDroneMedicationsRequestDto);
+
         //droneRepo.save(medicationPhoto);
         return new LoadDroneMedicationsResponseDto();
     }
@@ -99,7 +98,7 @@ public class DroneService implements DroneIService {
     public void checkAvailableDrones() {
 
         List<Drone> droneRepos = droneRepo
-        .findAllByStateEquals(DroneState.IDLE.toString());
+                .findAllByStateEquals(DroneState.IDLE.toString());
 
     }
 
@@ -113,7 +112,7 @@ public class DroneService implements DroneIService {
 
     }
 
-    public CheckDroneBatteryResponseDto checkDroneBattery(CheckDroneBatteryRequestDto checkDroneBatteryRequestDto) {
+    public CheckDroneBatteryResponseDto checkDroneBattery(CheckDroneBatteryRequestDto checkDroneBatteryRequestDto) throws CustomException {
 
         Optional<Drone> drone = droneRepo.findById(checkDroneBatteryRequestDto.getDroneSerialNumber());
 
@@ -130,8 +129,8 @@ public class DroneService implements DroneIService {
 
         } else {
 
-            checkDroneBatteryResponseDto.setCode("602")
-                    .setMessage("This drone does not present");
+            throw new CustomException(resourceBundleConfig.getDroneDoesNotPresentCode()
+                    , resourceBundleConfig.getDroneDoesNotPresentMessage());
 
         }
         return checkDroneBatteryResponseDto;
