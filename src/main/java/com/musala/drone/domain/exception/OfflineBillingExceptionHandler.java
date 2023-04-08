@@ -18,16 +18,9 @@ public class OfflineBillingExceptionHandler {
     }
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<JSONObject> handleCustomException(CustomException ex) {
+    public ResponseEntity<Object> handleCustomException(CustomException ex) {
 
-        JSONObject statusResponse = new JSONObject();
-        JSONObject response = new JSONObject();
-
-        response.put("message", ex.message);
-        response.put("code", ex.code);
-        statusResponse.put("status", response);
-
-        return new ResponseEntity<>(statusResponse, HttpStatus.OK);
+        return new ResponseEntity<>(ex, HttpStatus.OK);
 
     }
 

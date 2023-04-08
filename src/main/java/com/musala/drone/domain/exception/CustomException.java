@@ -1,5 +1,7 @@
 package com.musala.drone.domain.exception;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomException extends Exception {
 
-    String code;
-
-    String message;
+    @JsonProperty("status")
+    ApiResponseDto apiResponseDto;
 
 }

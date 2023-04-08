@@ -59,8 +59,12 @@ public class DroneService implements DroneIService {
             exception.printStackTrace();
             log.info("Failed to Map RegisterDroneRequestDto to Drone Entity");
 
-            throw new CustomException(resourceBundleConfig.getDroneRegistrationFailedCode()
-                    , resourceBundleConfig.getDroneRegistrationFailedMessage());
+            ApiResponseDto apiResponseDto;
+
+            apiResponseDto.setCode(resourceBundleConfig.getDroneRegistrationFailedCode()).
+                    setMessage(resourceBundleConfig.getDroneRegistrationFailedMessage());
+
+            throw new CustomException(apiResponseDto);
 
         }
         droneRepo.save(drone);
@@ -125,14 +129,20 @@ public class DroneService implements DroneIService {
         if (drone.isPresent()) {
 
             checkDroneBatteryResponseDto.setBatteryCapacity(drone.get().getBatteryCapacity())
-                    .setCode("600").setMessage("The Drone capacity retrieved successfully");
+                    .setCode(resourceBundleConfig.getOperationDroneSuccessfullyCode())
+                    .setMessage(resourceBundleConfig.getDroneCapacityRetrievedSuccessfullyMessage());
 
         } else {
 
-            throw new CustomException(resourceBundleConfig.getDroneDoesNotPresentCode()
-                    , resourceBundleConfig.getDroneDoesNotPresentMessage());
+            ApiResponseDto apiResponseDto;
+
+            apiResponseDto.setCode(resourceBundleConfig.getDroneDoesNotPresentCode()).
+                    setMessage(resourceBundleConfig.getDroneDoesNotPresentMessage());
+
+            throw new CustomException(apiResponseDto);
 
         }
+
         return checkDroneBatteryResponseDto;
 
     }
