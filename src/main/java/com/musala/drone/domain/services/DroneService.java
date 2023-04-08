@@ -9,6 +9,9 @@ import com.musala.drone.domain.entities.Medication;
 import com.musala.drone.domain.entities.MedicationPhoto;
 import com.musala.drone.domain.mapper.DroneMapper;
 import com.musala.drone.domain.repository.DroneRepo;
+import com.musala.drone.domain.repository.MedicationHistoryRepo;
+import com.musala.drone.domain.repository.MedicationPhotoRepo;
+import com.musala.drone.domain.repository.MedicationRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +27,12 @@ public class DroneService implements DroneIService {
 
     @Autowired
     private DroneRepo droneRepo;
+    @Autowired
+    private MedicationRepo medicationRepo;
+    @Autowired
+    private MedicationPhotoRepo medicationPhotoRepo;
+    @Autowired
+    private MedicationHistoryRepo medicationHistoryRepo;
 
     @Autowired
     DroneMapper droneMapper;
