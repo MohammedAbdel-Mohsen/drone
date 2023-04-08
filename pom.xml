@@ -113,41 +113,41 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.openapitools</groupId>-->
-<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
-<!--                <version>${openapi-generator-maven-plugin.version}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>drone-api</id>-->
-<!--                        <goals>-->
-<!--                            <goal>generate</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>-->
-<!--                            <inputSpec>${project.basedir}/src/main/resources/static/drone-api.yaml-->
-<!--                            </inputSpec>-->
-<!--                            <generatorName>spring</generatorName>-->
-<!--                            <output>${project.basedir}</output>-->
-<!--                            <modelNameSuffix>Dto</modelNameSuffix>-->
-<!--                            <configOptions>-->
-<!--                                <hideGenerationTimestamp>true</hideGenerationTimestamp>-->
-<!--                                <modelPackage>${base.package}.model</modelPackage>-->
-<!--                                <apiPackage>${base.package}.controller</apiPackage>-->
-<!--                                <invokerPackage>${base.package}.controller</invokerPackage>-->
-<!--                                <sourceFolder>target/generated-sources/openApi</sourceFolder>-->
-<!--                                <serializableModel>true</serializableModel>-->
-<!--                                <dateLibrary>java8</dateLibrary>-->
-<!--                                <useTags>true</useTags>-->
-<!--                                <openApiNullable>false</openApiNullable>-->
-<!--                                <interfaceOnly>true</interfaceOnly>-->
-<!--                                <basePackage>${base.package}</basePackage>-->
-<!--                                <delegatePattern>false</delegatePattern>-->
-<!--                            </configOptions>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>drone-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
+                            <inputSpec>${project.basedir}/src/main/resources/static/drone-api.yaml
+                            </inputSpec>
+                            <generatorName>spring</generatorName>
+                            <output>${project.basedir}</output>
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <configOptions>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <modelPackage>${base.package}.model</modelPackage>
+                                <apiPackage>${base.package}.controller</apiPackage>
+                                <invokerPackage>${base.package}.controller</invokerPackage>
+                                <sourceFolder>target/generated-sources/openApi</sourceFolder>
+                                <serializableModel>true</serializableModel>
+                                <dateLibrary>java8</dateLibrary>
+                                <useTags>true</useTags>
+                                <openApiNullable>false</openApiNullable>
+                                <interfaceOnly>true</interfaceOnly>
+                                <basePackage>${base.package}</basePackage>
+                                <delegatePattern>false</delegatePattern>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

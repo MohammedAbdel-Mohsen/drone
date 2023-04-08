@@ -5,10 +5,13 @@ import com.musala.drone.domain.dtos.LoadDroneMedicationsResponseDto;
 import com.musala.drone.domain.dtos.RegisterDroneRequestDto;
 import com.musala.drone.domain.dtos.RegisterDroneResponseDto;
 import com.musala.drone.domain.entities.Drone;
+import com.musala.drone.domain.entities.Medication;
+import com.musala.drone.domain.entities.MedicationPhoto;
 import com.musala.drone.domain.mapper.DroneMapper;
 import com.musala.drone.domain.repository.DroneRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,11 +28,13 @@ public class DroneService implements DroneIService {
     @Autowired
     DroneMapper droneMapper;
 
+
     @Override
     @Transactional
     public RegisterDroneResponseDto registerDrone(RegisterDroneRequestDto registerDroneRequestDto) {
         Drone drone = null;
-        RegisterDroneResponseDto registerDroneResponseDto=new RegisterDroneResponseDto();
+
+        RegisterDroneResponseDto registerDroneResponseDto = new RegisterDroneResponseDto();
         try {
             drone = droneMapper.toDroneEntity(registerDroneRequestDto);
         } catch (Exception exception) {
@@ -50,8 +55,21 @@ public class DroneService implements DroneIService {
     @Override
     public LoadDroneMedicationsResponseDto loadDrone(LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto) {
 
+        Medication medication = null;
+        MedicationPhoto medicationPhoto = null;
+        try {
+            medication = droneMapper.toMedicationEntity(loadDroneMedicationsRequestDto);
+        } catch (Exception exception) {
 
+        }
+        //droneRepo.save(medication);
+        log.info("Medication has been inserted successfully");
+        try {
+            medicationPhoto = droneMapper.toMedicationPhotoEntity(loadDroneMedicationsRequestDto);
+        } catch (Exception exception) {
 
+        }
+        //droneRepo.save(medicationPhoto);
         return new LoadDroneMedicationsResponseDto();
     }
 
