@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>3.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.musala</groupId>
@@ -16,7 +16,7 @@
         communication, the drone has the potential to leapfrog traditional transportation infrastructure
     </description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>8</java.version>
         <base.package>com.musala.drone</base.package>
         <openapi-generator-maven-plugin.version>3.3.4</openapi-generator-maven-plugin.version>
     </properties>
@@ -79,6 +79,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>1.4.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.0.7</version>
         </dependency>
     </dependencies>
     <build>

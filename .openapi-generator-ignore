@@ -26,3 +26,4 @@ README.md
 src/main/resources/application.properties
 src/main/resources/dev.properties
 src/main/resources/test.properties
+src/main/resources/message.properties

@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/.openapi-generator/drone-api.yaml.sha256
+/.openapi-generator/VERSION
