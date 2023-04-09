@@ -1,0 +1,12 @@
+target/generated-sources/openApi/com/musala/drone/controller/ApiUtil.java
+target/generated-sources/openApi/com/musala/drone/controller/DroneApi.java
+target/generated-sources/openApi/com/musala/drone/controller/DroneMedicationItemsApi.java
+target/generated-sources/openApi/com/musala/drone/model/ApiResponseDto.java
+target/generated-sources/openApi/com/musala/drone/model/CheckDroneBatteryResponseBodyDto.java
+target/generated-sources/openApi/com/musala/drone/model/DroneDto.java
+target/generated-sources/openApi/com/musala/drone/model/DroneSerialNumberDto.java
+target/generated-sources/openApi/com/musala/drone/model/GetAvailableDronesForLoadingResponseBodyDto.java
+target/generated-sources/openApi/com/musala/drone/model/GetLoadedMedicationItemsResponseBodyDto.java
+target/generated-sources/openApi/com/musala/drone/model/LoadDroneRequestBodyDto.java
+target/generated-sources/openApi/com/musala/drone/model/MedicationDto.java
+target/generated-sources/openApi/com/musala/drone/model/ProblemDto.java

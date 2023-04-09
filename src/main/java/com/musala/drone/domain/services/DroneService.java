@@ -67,7 +67,7 @@ public class DroneService implements DroneIService {
         log.info("Drone is inserted>>>");
 
         registerDroneResponseDto.setCode(resourceBundleConfig.getOperationDroneSuccessfullyCode());
-        registerDroneResponseDto.setMessage(resourceBundleConfig.getDroneRegistrationFailedMessage());
+        registerDroneResponseDto.setMessage(resourceBundleConfig.getDroneSuccessfulRegistrationMessage());
 
         return registerDroneResponseDto;
     }

@@ -21,6 +21,8 @@ public class ResourceBundleConfig {
 
     private String droneRegistrationFailedMessage;
 
+    private String droneSuccessfulRegistrationMessage;
+
     private String droneDoesNotPresentCode;
 
     private String droneDoesNotPresentMessage;
