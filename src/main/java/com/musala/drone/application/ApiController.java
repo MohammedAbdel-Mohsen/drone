@@ -11,47 +11,47 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 public class ApiController {
 
     @Autowired
     private DroneService droneService;
+
     @PostMapping(path = "/registerDrone")
     public ResponseEntity<RegisterDroneResponseDto> registerDrone
-            (@Valid @RequestBody  RegisterDroneRequestDto registerDroneRequestDto) throws CustomException {
+            (@Valid @RequestBody RegisterDroneRequestDto registerDroneRequestDto) throws CustomException {
 
-        RegisterDroneResponseDto registerDroneResponseDto=droneService.registerDrone(registerDroneRequestDto);
+        RegisterDroneResponseDto registerDroneResponseDto = droneService.registerDrone(registerDroneRequestDto);
         return ResponseEntity.ok(registerDroneResponseDto);
     }
 
     @PostMapping(path = "/loadDroneMedications")
-    public ResponseEntity<LoadDroneMedicationsResponseDto> loadDroneMedications(@Valid @RequestBody  LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto){
+    public ResponseEntity<LoadDroneMedicationsResponseDto> loadDroneMedications(@Valid @RequestBody LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto) throws CustomException {
 
-        return ResponseEntity.ok(new LoadDroneMedicationsResponseDto());
+        LoadDroneMedicationsResponseDto loadDroneMedicationsResponseDto = droneService.loadDrone(loadDroneMedicationsRequestDto);
+        return ResponseEntity.ok(loadDroneMedicationsResponseDto);
     }
 
-//    @PostMapping(path = "/loadDroneMedications")
-//    public ResponseEntity<CheckLoadedMedicationsResponseDto> checkLoadedMedications(@RequestBody CheckLoadedMedicationsRequestDto checkLoadedMedicationsRequestDto){
-//
-//        return ResponseEntity.ok(new CheckLoadedMedicationsResponseDto());
-//    }
+    @PostMapping(path = "/checkLoadedDroneMedications")
+    public ResponseEntity<CheckLoadedMedicationsResponseDto> checkLoadedMedications(@Valid @RequestBody CheckLoadedMedicationsRequestDto checkLoadedMedicationsRequestDto) throws CustomException {
+        droneService.checkDroneLoadedMedications(checkLoadedMedicationsRequestDto);
+        return ResponseEntity.ok(new CheckLoadedMedicationsResponseDto());
+    }
 
     @GetMapping(path = "/checkAvailableDrones")
-    public ResponseEntity<List<DroneDto>> checkAvailableDronesForLoading(){
+    public ResponseEntity<CheckAvailableDronesResponseDto> checkAvailableDronesForLoading() throws CustomException {
 
-        return ResponseEntity.ok(new ArrayList<>());
+        CheckAvailableDronesResponseDto checkAvailableDronesResponseDto = droneService.checkAvailableDrones();
+        return ResponseEntity.ok(checkAvailableDronesResponseDto);
 
     }
 
     @PostMapping(path = "/checkDroneBattery")
-    public ResponseEntity<CheckDroneBatteryResponseDto> checkDroneBattery(@RequestBody CheckDroneBatteryRequestDto checkDroneBatteryRequestDto){
+    public ResponseEntity<CheckDroneBatteryResponseDto> checkDroneBattery(@Valid @RequestBody CheckDroneBatteryRequestDto checkDroneBatteryRequestDto) throws CustomException {
 
-        return ResponseEntity.ok(new CheckDroneBatteryResponseDto());
+        CheckDroneBatteryResponseDto checkDroneBatteryResponseDto=droneService.checkDroneBattery(checkDroneBatteryRequestDto);
+        return ResponseEntity.ok(checkDroneBatteryResponseDto);
     }
-
 
 
 }

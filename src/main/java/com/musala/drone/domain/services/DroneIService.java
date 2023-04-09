@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public interface DroneIService {
 
-    public RegisterDroneResponseDto registerDrone(RegisterDroneRequestDto registerDroneRequestDto)
-            throws CustomException;
+    public RegisterDroneResponseDto registerDrone(RegisterDroneRequestDto registerDroneRequestDto) throws CustomException;
 
-    public LoadDroneMedicationsResponseDto loadDrone(LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto);
+    public LoadDroneMedicationsResponseDto loadDrone(LoadDroneMedicationsRequestDto loadDroneMedicationsRequestDto) throws CustomException;
 
-    public void checkDroneLoadedMedications();
+    public CheckLoadedMedicationsResponseDto checkDroneLoadedMedications(CheckLoadedMedicationsRequestDto checkLoadedMedicationsRequestDto)throws CustomException;
 
-    public void checkAvailableDrones();
+    public CheckAvailableDronesResponseDto checkAvailableDrones() throws CustomException;
 
     public void checkDroneBatteryPeriodic();
 

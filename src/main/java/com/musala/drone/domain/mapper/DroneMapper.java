@@ -1,5 +1,6 @@
 package com.musala.drone.domain.mapper;
 
+import com.musala.drone.domain.dtos.DroneDto;
 import com.musala.drone.domain.dtos.LoadDroneMedicationsRequestDto;
 import com.musala.drone.domain.dtos.RegisterDroneRequestDto;
 import com.musala.drone.domain.entities.Drone;
@@ -20,6 +21,15 @@ public abstract class DroneMapper {
             @Mapping(target = "state", source = "registerDroneRequestDto.state"),
     })
     public abstract Drone toDroneEntity(RegisterDroneRequestDto registerDroneRequestDto);
+
+    @Mappings({
+            @Mapping(target = "serialNumber", source = "drone.serialNumber"),
+            @Mapping(target = "droneModel", source = "drone.droneModel"),
+            @Mapping(target = "weightLimit", source = "drone.weightLimit"),
+            @Mapping(target = "batteryCapacity", source = "drone.batteryCapacity"),
+            @Mapping(target = "state", source = "drone.state"),
+    })
+    public abstract DroneDto toDroneDto(Drone drone);
 
     @Mappings({
             @Mapping(target = "name", source = "loadDroneMedicationsRequestDto.medicationName"),

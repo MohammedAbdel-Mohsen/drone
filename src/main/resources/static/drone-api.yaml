@@ -282,9 +282,8 @@ components:
       type: object
       properties:
         code:
-          type: integer
-          format: int32
-          example: 200
+          type: string
+          example: "600"
         message:
           type: string
           example: 'Request Handled Successfully'

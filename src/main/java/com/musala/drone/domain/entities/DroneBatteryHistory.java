@@ -2,6 +2,7 @@ package com.musala.drone.domain.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.Max;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,8 @@ public class DroneBatteryHistory {
     private String droneId;
 
     @Column(name = "BATTERY_CAPACITY")
-    @DecimalMax(value = "100.00")
-    private Double batteryCapacity;
+    @Max(value = 100)
+    private Integer batteryCapacity;
 
     @Column(name = "CHECKING_TIME")
     private Timestamp checkingTime;
